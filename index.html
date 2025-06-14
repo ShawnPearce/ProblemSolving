@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shawn Pearce - Creative Problem Solving Assignment Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e9ecef;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            color: #1a202c;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header .course-info {
+            font-size: 1.2em;
+            color: #4a5568;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .header .student-info {
+            font-size: 1.1em;
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .navigation {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e9ecef;
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            background: #4a5568;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: none;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(74, 85, 104, 0.3);
+            background: #2d3748;
+        }
+
+        .nav-btn.active {
+            background: #2b6cb0;
+            box-shadow: 0 4px 12px rgba(43, 108, 176, 0.3);
+        }
+
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e9ecef;
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section h2 {
+            font-size: 2.4em;
+            color: #1a202c;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .section h2:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: #2b6cb0;
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        .section h3 {
+            font-size: 1.6em;
+            color: #2d3748;
+            margin: 30px 0 18px 0;
+            border-left: 4px solid #2b6cb0;
+            padding-left: 20px;
+            font-weight: 600;
+        }
+
+        .section h4 {
+            font-size: 1.3em;
+            color: #1a202c;
+            margin: 25px 0 15px 0;
+            font-weight: 600;
+        }
+
+        .section p, .section li {
+            margin-bottom: 15px;
+            text-align: justify;
+            font-size: 1.1em;
+            color: #4a5568;
+            line-height: 1.8;
+        }
+
+        .section ul, .section ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .problem-card {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 30px;
+            border-left: 5px solid #2b6cb0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .problem-card h3 {
+            color: #1a202c;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            border: none;
+            padding: 0;
+        }
+
+        .problem-card p {
+            color: #4a5568;
+            font-size: 1.05em;
+        }
+
+        .brainstorm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .brainstorm-item {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 18px;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+            color: #2d3748;
+            font-size: 0.95em;
+        }
+
+        .brainstorm-item:hover {
+            transform: scale(1.03);
+            border-color: #2b6cb0;
+            box-shadow: 0 6px 20px rgba(43, 108, 176, 0.15);
+            background: #edf2f7;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .matrix-table th, .matrix-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .matrix-table th {
+            background: #2d3748;
+            color: white;
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: 0.5px;
+        }
+
+        .matrix-table tr:nth-child(even) {
+            background-color: #f7fafc;
+        }
+
+        .matrix-table tr:hover {
+            background-color: #edf2f7;
+        }
+
+        .hwm-list {
+            background: #f0fff4;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 25px 0;
+            border-left: 5px solid #38a169;
+            border: 1px solid #c6f6d5;
+        }
+
+        .hwm-list li {
+            margin-bottom: 12px;
+            font-weight: 500;
+            color: #2f855a;
+            font-size: 1.05em;
+        }
+
+        .pov-statement {
+            background: #fffaf0;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            border: 2px solid #ed8936;
+            box-shadow: 0 4px 15px rgba(237, 137, 54, 0.15);
+            color: #744210;
+        }
+
+        .references {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 4px solid #4a5568;
+            border: 1px solid #e2e8f0;
+        }
+
+        .references a {
+            color: #2b6cb0;
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .references a:hover {
+            text-decoration: underline;
+            color: #2c5282;
+        }
+
+        .fishbone-diagram {
+            background: linear-gradient(135deg, #f0f8ff, #e6f3ff);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+            border: 2px solid #3498db;
+        }
+
+        .fishbone-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .fishbone-category {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .fishbone-category h5 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .fishbone-category ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .fishbone-category li {
+            background: #f8f9fa;
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+            }
+            
+            .nav-btn {
+                width: 100%;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .problem-grid,
+            .brainstorm-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Creative Problem Solving Portfolio</h1>
+            <div class="course-info">SOCS10172GD: Principles of Creative Problem Solving</div>
+            <div class="course-info">Professor Chris Ambedkar</div>
+            <div class="student-info">Shawn Pearce - Student ID: 991819655</div>
+        </div>
+
+        <div class="navigation">
+            <div class="nav-buttons">
+                <button class="nav-btn active" onclick="showSection('assignment1')">Assignment 1</button>
+                <button class="nav-btn" onclick="showSection('assignment2')">Assignment 2</button>
+                <button class="nav-btn" onclick="showSection('assignment4a')">Assignment 4A</button>
+                <button class="nav-btn" onclick="showSection('assignment4b')">Assignment 4B</button>
+                <button class="nav-btn" onclick="showSection('creative')">Creative Assignment</button>
+                <button class="nav-btn" onclick="showSection('fishbone')">Fishbone Analysis</button>
+            </div>
+        </div>
+
+        <div id="assignment1" class="section active">
+            <h2>Assignment 1: Problem Identification</h2>
+            <div class="pov-statement">
+                <strong>Due:</strong> May 14, 2025 11:59 PM
+            </div>
+            
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h3>Who experiences the problem</h3>
+                    <p>Customers, employees, and suppliers of Hudson's Bay are all affected by the company's operational challenges. Shoppers face declining store experiences and limited product availability, while employees are laid off due to the closure of multiple locations.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <h3>Where and when did you see it?</h3>
+                    <p>The issues are evident across Hudson's Bay locations such as both Burlington locations and in Toronto, including the flagship store on Queen Street and others in Yorkdale, Hillcrest Mall, and Fairview Pointe-Claire. These challenges have been ongoing since early 2025, culminating in the company's bankruptcy filing in March and subsequent store closures in April and May.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <h3>What exactly is the problem?</h3>
+                    <p>Hudson's Bay is grappling with significant financial and operational difficulties. The company has experienced a 33% decline in sales and a 50% drop in e-commerce revenue in 2024. Contributing factors include rapid increase cost of living, reduced consumer spending, trade tensions, and decreased foot traffic in downtown areas post-pandemic. These challenges led to the filing for bankruptcy protection and the decision to liquidate stores across Canada.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <h3>Why is this problem worth solving?</h3>
+                    <p>Hudson's Bay's financial struggles, marked by declining sales and store closures, reflect a broader trend in Burlington and other communities, where rising costs and economic pressures are making it harder for people to afford once-common luxuries and even worse basic needs like clothing and appliances.</p>
+                </div>
+            </div>
+            
+            <div class="references">
+                <h4>References:</h4>
+                <p>Patterson, C. (2025, April 3). Hudson's Bay sales collapsed prior to bankruptcy: Leaked memo. Retail Insider. <a href="https://retail-insider.com/retail-insider/2025/04/hudsons-bay-sales-collapsed-prior-to-bankruptcy-leaked-memo/" target="_blank">https://retail-insider.com/retail-insider/2025/04/hudsons-bay-sales-collapsed-prior-to-bankruptcy-leaked-memo/</a></p>
+            </div>
+        </div>
+
+        <div id="assignment2" class="section">
+            <h2>Assignment 2: Research & Analysis</h2>
+            
+            <h3>Interview Questions for Hudson's Bay Problem</h3>
+            <ol>
+                <li><strong>Personal Shopping Experience:</strong> "Can you describe your shopping experience at Hudson's Bay? How has it changed over the past few years, particularly regarding the availability of products and the overall atmosphere in-store?"</li>
+                <li><strong>Impact of Store Closures:</strong> "With Hudson's Bay closing its stores in the region, how do you feel this will affect your shopping habits? Are there any specific products or services you will miss the most?"</li>
+                <li><strong>E-Commerce and Online Shopping:</strong> "How frequently do you shop online at Hudson's Bay? What has been your experience with their e-commerce site, and how has it changed over time? Is there something that could be improved to make the online shopping experience better?"</li>
+                <li><strong>Community Impact:</strong> "How do you think the decline of major retail stores like Hudson's Bay affects the local community in Burlington, both in terms of shopping options and the economy?"</li>
+                <li><strong>Emotional Impact:</strong> "What do you think about the financial difficulties Hudson's Bay is facing, and how does this affect your perception of the brand? Does it change your loyalty as a customer?"</li>
+            </ol>
+
+            <h3>Secondary Research</h3>
+            <div class="references">
+                <ol>
+                    <li><strong>Retail Insider Article on Hudson's Bay's Decline:</strong><br>
+                    Patterson, C. (2025, April 3). Hudson's Bay sales collapsed prior to bankruptcy: Leaked memo. Retail Insider. <a href="https://retail-insider.com/retail-insider/2025/04/hudsons-bay-sales-collapsed-prior-to-bankruptcy-leaked-memo/" target="_blank">Link</a><br>
+                    This article discusses the significant decline in Hudson's Bay's sales and their e-commerce revenue. It connects directly to the challenges facing the company in Burlington and other communities.</li>
+                    
+                    <li><strong>AP News Report on Bankruptcy Filing:</strong><br>
+                    Patterson, C. (2025, May 2). Hudson's Bay turns 355—but this birthday could be its last. Retail Insider. <a href="https://retail-insider.com/retail-insider/2025/05/hudsons-bay-turns-355-but-this-birthday-could-be-its-last/" target="_blank">Link</a><br>
+                    This report covers Hudson's Bay's filing for bankruptcy protection and its efforts to liquidate stores. It provides critical context for the broader economic issues facing communities like Burlington, with a focus on shifting consumer behavior and reduced foot traffic.</li>
+                </ol>
+            </div>
+
+            <h3>Research Insights</h3>
+            <p>Through both primary and secondary research, I gained valuable insights into the shifting dynamics of retail consumer behavior, particularly in the context of large department stores such as Hudson's Bay. One of the most prominent observations is that consumers are rapidly changing the way they view traditional retail. The rise of e-commerce platforms most notably Amazon has transformed shopping habits, offering unmatched convenience, competitive pricing, and seamless user experiences. This shift became especially pronounced in the post-pandemic era, when online shopping became a necessity and, subsequently, a preference for many.</p>
+
+            <p>The individual I interviewed, Carlos, offered a particularly thoughtful perspective. Surprisingly, he expressed little personal concern about the closure of major retail stores, stating that his shopping habits would remain unaffected. Instead, his primary concern was for the employees who might lose their jobs. This empathy points to a broader societal shift in consumer values: people are not only moving away from traditional shopping models but also becoming more socially conscious, aware of the human impact behind retail industry changes.</p>
+
+            <p>My secondary research supported these anecdotal insights. Financial data shows a steady decline in revenue for large department stores over the past decade. The current business model appears unsustainable, particularly when compared to the efficiency and lower overhead of online retailers. Brick and mortar stores are burdened by high operational costs, including rent, staffing, and inventory management, which digital platforms can largely avoid. As a result, legacy retailers like Hudson's Bay struggle to compete on both price and convenience.</p>
+
+            <p>Additionally, macroeconomic factors such as rising inflation, an increased cost of living, and changes in consumer priorities have made it even more difficult for traditional retail outlets to survive. Consumers are increasingly budget conscious, and online marketplaces provide them with easier access to lower cost alternatives.</p>
+
+            <p>In conclusion, both the interview and the research reveal a retail landscape in transition. Consumer expectations have evolved, and the appeal of the in-store shopping experience has diminished. Unless traditional retailers can adapt to these changes by rethinking their value proposition, investing in digital infrastructure, or adopting hybrid business models their decline appears inevitable.</p>
+        </div>
+
+        <div id="assignment4a" class="section">
+            <h2>Assignment 4A: Brainstorming Ideas</h2>
+            
+            <div class="brainstorm-grid">
+                <div class="brainstorm-item">Augmented Reality mirrors that let customers try on clothes virtually in store</div>
+                <div class="brainstorm-item">Online product reserving with 2-hour in store pickup</div>
+                <div class="brainstorm-item">Interactive store kiosks showing online reviews and recommendations</div>
+                <div class="brainstorm-item">Smart carts that scan items and check out automatically</div>
+                <div class="brainstorm-item">Mobile app that maps item locations in store</div>
+                <div class="brainstorm-item">Loyalty rewards for both in store and online purchases (IE Crypto)</div>
+                <div class="brainstorm-item">Digital lockers for express pickup of online orders</div>
+                <div class="brainstorm-item">Virtual queuing system to reserve fitting rooms or service help</div>
+                <div class="brainstorm-item">Live in store chats with remote stylists or product experts</div>
+                <div class="brainstorm-item">In store Virtual reality and augmented reality product demos</div>
+                <div class="brainstorm-item">Scan and go mobile checkout systems</div>
+                <div class="brainstorm-item">Personal coupons triggered by your location in the store</div>
+                <div class="brainstorm-item">In store events tied to explosive online drops or memberships</div>
+                <div class="brainstorm-item">Mobile app gamification - earn points for scanning QR codes</div>
+                <div class="brainstorm-item">Self service personalization stations (custom shoes)</div>
+                <div class="brainstorm-item">Order from store, deliver to home options at checkout</div>
+                <div class="brainstorm-item">AI personal shopping assistant</div>
+                <div class="brainstorm-item">Customer curated displays based on most viewed or wish listed items</div>
+                <div class="brainstorm-item">Digital comparison tables for similar products in store vs online</div>
+                <div class="brainstorm-item">Mixed reality way finding to find products or deals</div>
+                <div class="brainstorm-item">Social shopping zones with instagrammable areas</div>
+                <div class="brainstorm-item">In store cafes</div>
+                <div class="brainstorm-item">Remote video call shopping</div>
+                <div class="brainstorm-item">Live events designed for the communities engagement</div>
+                <div class="brainstorm-item">Community bulletin boards</div>
+                <div class="brainstorm-item">Pet exercise stations</div>
+            </div>
+        </div>
+
+        <div id="assignment4b" class="section">
+            <h2>Assignment 4B: Decision Matrix</h2>
+            
+            <p>In Step 3 of the assignment, a decision matrix was used to evaluate and narrow down potential solutions to the challenge of creating hybrid shopping experiences that combine online and offline benefits. Each idea was rated based on three criteria: Impact, Feasibility, and Cost. The goal was to objectively assess the strongest concepts using a data-driven approach.</p>
+
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th>Idea</th>
+                        <th>Impact (1-5)</th>
+                        <th>Feasibility (1-5)</th>
+                        <th>Cost (1-5)</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>AR Mirrors</td>
+                        <td>5</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td><strong>10</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Digital Lockers for Pickup</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>4</td>
+                        <td><strong>13</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Mobile App Mapping</td>
+                        <td>4</td>
+                        <td>4</td>
+                        <td>3</td>
+                        <td><strong>11</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Scan & Go Checkout</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>4</td>
+                        <td><strong>13</strong></td>
+                    </tr>
+                    <tr>
+                        <td>VR/AR Product Demos</td>
+                        <td>5</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td><strong>10</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Review Kiosks</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>3</td>
+                        <td><strong>12</strong></td>
+                    </tr>
+                    <tr>
+                        <td>AI Shopping Assistant</td>
+                        <td>5</td>
+                        <td>4</td>
+                        <td>4</td>
+                        <td><strong>13</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Order in Store, Deliver Home</td>
+                        <td>4</td>
+                        <td>4</td>
+                        <td>3</td>
+                        <td><strong>11</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Analysis</h3>
+            <p>Based on the results of the decision matrix, the highest-scoring concepts include 'Scan & Go Checkout', 'AI Personal Shopping Assistant', and 'Interactive Review Kiosks'. These ideas provide a strong balance between practical feasibility, innovative potential, and overall customer impact. Among them, 'Interactive Review Kiosks' emerged as the most well-rounded solution. This concept directly addresses the gap between online and in-store retail by integrating customer reviews and product insights into the physical shopping experience. It offers a seamless, tech-enhanced way for consumers to make informed decisions, much like they would online. Moreover, it encourages confidence in purchasing, reduces buyer hesitation, and aligns well with evolving customer expectations for transparency and convenience in the retail space. This solution can be implemented at scale with manageable cost and complexity, making it an ideal candidate for revitalizing traditional retail.</p>
+        </div>
+
+        <div id="creative" class="section">
+            <h2>Creative Assignment: Problem Definition & Solutions</h2>
+            
+            <div class="pov-statement">
+                <strong>POV Statement:</strong><br>
+                Budget conscious consumers need compelling reasons to choose physical retail over online shopping because traditional department stores cannot compete on convenience, price, and selection because consumers are placing increasingly more value on efficiency, impacting purchasing decisions.
+            </div>
+
+            <h3>How Might We (HMW) Questions</h3>
+            <div class="hwm-list">
+                <ul>
+                    <li>How might we create unique store experiences that online shipping cannot replicate?</li>
+                    <li>How might we make physical shopping as convenient as online shopping?</li>
+                    <li>How might we help budget conscious customers find better value in traditional retail?</li>
+                    <li>How might we reduce the time and effort required for in store shopping?</li>
+                    <li>How might we reimagine the department store model to reduce operational costs?</li>
+                    <li>How might we create hybrid shopping experiences that combine online and offline benefits?</li>
+                    <li>How might we help traditional retailers compete on price without sacrificing quality?</li>
+                    <li>How might we transform large retail spaces into multipurpose community hubs?</li>
+                    <li>How might we address consumer concerns about job retail losses while maintaining business viability?</li>
+                    <li>How might we retrain and redeploy retail workers in the evolving economy?</li>
+                    <li>How might we create new employment opportunities within transformed retail models?</li>
+                    <li>How might we position physical stores as essential community gathering spaces?</li>
+                    <li>How might we create social shopping experiences that build community connections?</li>
+                    <li>How might we help consumers feel good about supporting local retail employment?</li>
+                </ul>
+            </div>
+
+            <h3>Selected HMW Question</h3>
+            <div class="pov-statement">
+                "How might we create hybrid shopping experiences that combine online and offline benefits?"
+            </div>
+
+            <h4>Why This Question is Valuable</h4>
+            <p>This question addresses the core challenges identified in our problem such as the fundamental value proposition gap between online and offline retail. Rather than trying to compete directly with online retailers on their strengths the approach creates entirely new value propositions that leverage the best of both worlds.</p>
+
+            <p>This is valuable because it accepts that online shopping has permanent advantages rather than fighting against them. It opens possibilities for solutions like augmented reality, same day pickup, personalized in store consultations with online research integration and community spaces with digital enhancement. It can simultaneously serve budget conscious consumers, employees, and retailers.</p>
+
+            <p>These solutions developed here could transform the entire retail industry rather than just helping individual stores to survive. It positions traditional retailers to evolve with changing consumer behavior rather than resist it.</p>
+
+            <p>This question is likely to generate breakthrough innovations that could revitalize physical retail by creating experiences that neither online nor traditional offline shipping can provide alone.</p>
+        </div>
+
+        <div id="fishbone" class="section">
+            <h2>Fishbone Diagram Analysis</h2>
+            
+            <div class="fishbone-diagram">
+                <div class="pov-statement">
+                    <strong>Problem Statement:</strong><br>
+                    Budget conscious consumers need compelling reasons to choose physical retail over online shopping because traditional department stores cannot compete on convenience, price, and selection because consumers are placing increasingly more value on efficiency, impacting purchasing decisions.
+                </div>
+                
+                <div class="fishbone-categories">
+                    <div class="fishbone-category">
+                        <h5>Consumer Behaviour</h5>
+                        <ul>
+                            <li>Convenience priority</li>
+                            <li>Price sensitivity</li>
+                            <li>Changing expectations</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="fishbone-category">
+                        <h5>Technology</h5>
+                        <ul>
+                            <li>E-commerce platforms</li>
+                            <li>Mobile Shopping</li>
+                            <li>AI</li>
+                            <li>AR</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="fishbone-category">
+                        <h5>Economics</h5>
+                        <ul>
+                            <li>Inflation</li>
+                            <li>Cost of living</li>
+                            <li>Budget constraints</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="fishbone-category">
+                        <h5>Competition</h5>
+                        <ul>
+                            <li>Amazon dominance</li>
+                            <li>Price competition</li>
+                            <li>Selection Advantage</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="fishbone-category">
+                        <h5>Operations</h5>
+                        <ul>
+                            <li>High overhead</li>
+                            <li>Rent / Utilities</li>
+                            <li>Staffing costs</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="fishbone-category">
+                        <h5>External Factors</h5>
+                        <ul>
+                            <li>Post pandemic shift</li>
+                            <li>Remote work culture</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="fishbone-category">
+                        <h5>Business Model</h5>
+                        <ul>
+                            <li>Outdated value proposition</li>
+                            <li>Lack of motivation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="fishbone-category">
+                        <h5>Social Impact</h5>
+                        <ul>
+                            <li>Job displacement</li>
+                            <li>Community loss</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Smooth scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Add smooth scrolling and enhanced interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.problem-card, .brainstorm-item');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Add click animation to nav buttons
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+
+            // Add table row hover effects
+            const tableRows = document.querySelectorAll('.matrix-table tr');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.transition = 'all 0.2s ease';
+                });
+                
+                row.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            // Add a subtle parallax effect to the background
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const parallax = document.body;
+                const speed = scrolled * 0.5;
+                parallax.style.backgroundPosition = `center ${speed}px`;
+            });
+
+            // Add typing animation to POV statements
+            const povStatements = document.querySelectorAll('.pov-statement');
+            povStatements.forEach(statement => {
+                statement.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 20px 40px rgba(243, 156, 18, 0.3)';
+                    this.style.transform = 'scale(1.02)';
+                });
+                
+                statement.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 15px 30px rgba(243, 156, 18, 0.2)';
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            // Add dynamic background color changes based on active section
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        const activeSection = document.querySelector('.section.active');
+                        if (activeSection) {
+                            const sectionId = activeSection.id;
+                            const body = document.body;
+                            
+                            // Remove all section-specific classes
+                            body.classList.remove('assignment1-active', 'assignment2-active', 'assignment4a-active', 'assignment4b-active', 'creative-active', 'fishbone-active');
+                            
+                            // Add current section class
+                            body.classList.add(sectionId + '-active');
+                        }
+                    }
+                });
+            });
+
+            // Observe all sections for class changes
+            document.querySelectorAll('.section').forEach(section => {
+                observer.observe(section, { attributes: true });
+            });
+/*
+            // Add print functionality
+            const printButton = document.createElement('button');
+            /*printButton.innerHTML = '🖨️ Print Portfolio';
+            printButton.className = 'nav-btn';
+            printButton.style.position = 'fixed';
+            printButton.style.bottom = '20px';
+            printButton.style.right = '20px';
+            printButton.style.zIndex = '1000';
+            printButton.onclick = function() {
+                window.print();
+            };
+            document.body.appendChild(printButton);
+*/
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                const sections = ['assignment1', 'assignment2', 'assignment4a', 'assignment4b', 'creative', 'fishbone'];
+                const currentSection = document.querySelector('.section.active').id;
+                const currentIndex = sections.indexOf(currentSection);
+                
+                if (e.key === 'ArrowRight' && currentIndex < sections.length - 1) {
+                    const nextSection = sections[currentIndex + 1];
+                    const nextButton = document.querySelector(`[onclick="showSection('${nextSection}')"]`);
+                    nextButton.click();
+                } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                    const prevSection = sections[currentIndex - 1];
+                    const prevButton = document.querySelector(`[onclick="showSection('${prevSection}')"]`);
+                    prevButton.click();
+                }
+            });
+        });
+    </script>
+
+    <style>
+        /* Print styles */
+        @media print {
+            body {
+                background: white !important;
+            }
+            
+            .navigation, .nav-btn {
+                display: none !important;
+            }
+            
+            .section {
+                display: block !important;
+                page-break-after: always;
+                background: white !important;
+                box-shadow: none !important;
+                border: 1px solid #ccc;
+                margin-bottom: 20px;
+            }
+            
+            .section:last-child {
+                page-break-after: auto;
+            }
+        }
+
+        /* Enhanced responsive design */
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+            
+            .section h2 {
+                font-size: 1.8em;
+            }
+            
+            .matrix-table {
+                font-size: 0.8em;
+            }
+            
+            .matrix-table th, .matrix-table td {
+                padding: 8px;
+            }
+        }
+
+        /* Dark mode support
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            }
+            
+            .section, .header, .navigation {
+                background: rgba(52, 73, 94, 0.95);
+                color: #ecf0f1;
+            }
+            
+            .section h2, .section h3, .section h4 {
+                color: #3498db;
+            }
+            
+            .problem-card {
+                background: linear-gradient(135deg, #34495e, #2c3e50);
+                color: #ecf0f1;
+            }
+            
+            .brainstorm-item {
+                background: linear-gradient(135deg, #f39c12, #e67e22);
+                color: white;
+            }
+        }*/
+
+        /* Accessibility improvements */
+        .nav-btn:focus, .brainstorm-item:focus, .problem-card:focus {
+            outline: 3px solid #3498db;
+            outline-offset: 2px;
+        }
+        
+        /* High contrast mode */
+        @media (prefers-contrast: high) {
+            .nav-btn {
+                border: 2px solid #000;
+            }
+            
+            .section {
+                border: 2px solid #000;
+            }
+        }
+
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</body>
+</html>
